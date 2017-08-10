@@ -47,11 +47,11 @@ For playing that file, there are two options.
 
 (1) Within GNU Radio companion, load and rune the flowgraph: examples/c2ToAudioSink.grc
 
-![c2ToAudioSink Example](https://github.com/michelbarbeau/gr-splash/blob/master/examples/c2ToAudioSink.png)
+![c2ToAudioSink Example](https://gr-uwspr/examples/c2ToAudioSink.png)
 
 (2) Within GNU Radio companion, load and rune the flowgraph: examples/c2ToWaveFile
 
-![c2ToWaveFile Example](https://github.com/michelbarbeau/gr-splash/blob/master/examples/c2ToWaveFile.png)
+![c2ToWaveFile Example](https://gr-uwspr/examples/c2ToWaveFile.png )
 
 This program converts the ".c2" format into a audio file in the ".wav" format, at 12,000 samples per second. The baseband signal (in the ".c2" file ) is translated to center frequency 1,500 Hz. The output file "test.wav" can be played with any audio player. There is no need to have GNU Radio on the system on which it is played.
 
