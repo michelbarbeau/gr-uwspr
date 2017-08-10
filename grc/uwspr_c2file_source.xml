@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<block>
+  <name>c2file_source</name>
+  <key>C2_File_Source</key>
+  <category>uwspr</category>
+  <import>import uwspr</import>
+  <make>uwspr.c2file_source($file, $repeat)</make>
+<param>
+  <name>File</name>
+  <key>file</key>
+<value/>
+<type>file_open</type>
+</param>
+<param>
+  <name>Repeat</name>
+  <key>repeat</key>
+  <value>No</value>
+  <type>enum</type>
+  <option>
+    <name>No</name>
+    <key>False</key>
+  </option>
+  <option>
+    <name>Yes</name>
+    <key>True</key>
+  </option>
+</param>
+<source><name>out</name><type>complex</type><nports>1</nports></source>
+</block>

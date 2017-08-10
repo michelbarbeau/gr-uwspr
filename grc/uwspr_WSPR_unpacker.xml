@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<block>
+  <name>WSPR_unpacker</name>
+  <key>uwspr_WSPR_unpacker</key>
+  <category>uwspr</category>
+  <import>import uwspr</import>
+  <make>uwspr.WSPR_unpacker()</make>
+  <sink>
+    <name>in</name>
+    <type>message</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>message</type>
+  </source>
+</block>

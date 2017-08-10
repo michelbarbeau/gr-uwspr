@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<block>
+  <name>decoder</name>
+  <key>uwspr_decoder</key>
+  <category>uwspr</category>
+  <import>import uwspr</import>
+  <make>uwspr.decoder($maxdrift)</make>
+
+  <param>
+    <name>Max Freq Drift</name>
+    <key>maxdrift</key>
+    <value>0</value>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>message</type>
+  </source>
+  <doc>
+Copyright 2017 Michel Barbeau, Carleton University.
+
+Weak signal decoder.
+Parameters
+   Max Freq Drift = Maximum (+/-) frequency drift (Hertz)
+  </doc>
+</block>

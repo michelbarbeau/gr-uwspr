@@ -1,0 +1,16 @@
+int compare_bits(unsigned int val1, unsigned int val2)
+{
+    for (int i = NUM_BITS; i >= 0; i--)
+    {
+        if (get_bit(val1, i) ^ get_bit(val2, i)) // if the bit values are different, return the MSB position
+        {
+            return i;
+        }
+    }
+
+}
+
+bool get_bit(unsigned int val, int position)
+{
+    return (val & (1 << position)) >> position;
+}
