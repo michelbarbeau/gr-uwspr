@@ -59,11 +59,11 @@ This program converts the ".c2" format into a audio file in the ".wav" format, a
 
 Receiver: To run a receiver, load and run the flowgraph "examples/AudioSourceDecode.grc".
 
-![c2ToAudioSink Example](https://github.com/michelbarbeau/gr-uwspr/blob/master/examples/AudioSourceDecode.png)
+![AudioSourceDecode Example](https://github.com/michelbarbeau/gr-uwspr/blob/master/examples/AudioSourceDecode.png)
 
-Close-loop simulation:
+Closed-loop simulation: A closed-loop simulation is implemented in the flowgraph "examples/WaveFilePlusNoiseDecode.grc". It connects a sender and a noise source to a receiver.
 
-
+![WaveFilePlusNoiseDecode Example](https://github.com/michelbarbeau/gr-uwspr/blob/master/examples/WaveFilePlusNoiseDecode.png)
 
 
 
