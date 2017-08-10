@@ -2,11 +2,11 @@
 
 This project is related to the paper:
 
-Michel Barbeau, Weak Signal Underwater Communications in the Ultra Low Frequency Band, Proceedings of the GNU Radio Conference, September 2016.
+Michel Barbeau, Weak Signal Underwater Communications in the Ultra Low Frequency Band, Proceedings of the GNU Radio Conference, September 2017.
 
 
 # Copyright 2017 Carleton University.
-# Authors: Michel Barbeau
+# Author: Michel Barbeau
 # Version: August 8, 2017
 
 ## Installing 
@@ -39,21 +39,23 @@ Sender: To run a sender, a file in the ".c2" format must be generated first. The
 
 ./wsprsim VE3EMB.c2 "VE3EMB FN25 30"
 
-The source code of wsprsim is available here: 
+The source code of wsprsim is available here: http://physics.princeton.edu/pulsar/K1JT/wspr.html
 
-There are two options. 
+The program wsprsim generates an audio file in the ".c2" format. It has in-phase and quadarture.
 
-![DFLOOD Example](https://github.com/michelbarbeau/gr-splash/blob/master/node_DFLOOD.png)
+For playing that file, there are two options. 
 
-To run within gnuradio-companion:
+(1) Within GNU Radio companion, load and rune the flowgraph: examples/c2ToAudioSink.grc
 
-Open the flow graph  gr-splash/examples/node_0_DFLOOD.grc
+![c2ToAudioSink Example](https://github.com/michelbarbeau/gr-splash/blob/master/examples/c2ToAudioSink.png)
 
-To run outside gnuradio-companion (after generating the flow graph):
+(2) Within GNU Radio companion, load and rune the flowgraph: examples/c2ToWaveFile
 
-cd gr-splash/examples
+![c2ToWaveFile Example](https://github.com/michelbarbeau/gr-splash/blob/master/examples/c2ToWaveFile.png)
 
-python top_block.py
+This program converts the ".c2" format into a audio file in the ".wav" format, at 12,000 samples per second. The baseband signal (in the ".c2" file ) is translated to center frequency 1,500 Hz. The output file "test.wav" can be played with any audio player. There is no need to have GNU Radio on the system on which it is played.
+
+
 
 Receiver:
 
