@@ -7,7 +7,7 @@ Michel Barbeau, Weak Signal Underwater Communications in the Ultra Low Frequency
 
 # Copyright 2017 Carleton University.
 # Author: Michel Barbeau
-# Version: August 8, 2017
+# Version: August 23, 2017
 
 ## Installing 
 
