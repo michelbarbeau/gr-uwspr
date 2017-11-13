@@ -69,7 +69,8 @@ Note: Paths to local files in "Wav File Source" blocks must be updated according
 
 Watch the following demo on Youtube.
 
-<iframe width="640" height="360" src="https://www.youtube.com/embed/98o4X0QdZ78" frameborder="0" gesture="media" allowfullscreen></iframe>
+[![Demo](https://i1.ytimg.com/vi/98o4X0QdZ78/hqdefault.jpg)](https://youtu.be/98o4X0QdZ78)
+
 
 
 
