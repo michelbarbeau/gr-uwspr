@@ -7,7 +7,7 @@ Michel Barbeau, Weak Signal Underwater Communications in the Ultra Low Frequency
 
 # Copyright 2017 Carleton University.
 # Author: Michel Barbeau
-# Version: August 23, 2017
+# Version: November 12, 2017
 
 ## Installing 
 
@@ -64,6 +64,12 @@ Receiver: To run a receiver, load and run the flowgraph "examples/AudioSourceDec
 Closed-loop simulation: A closed-loop simulation is implemented in the flowgraph "examples/WaveFilePlusNoiseDecode.grc". It connects a sender and a noise source to a receiver.
 
 ![WaveFilePlusNoiseDecode Example](https://github.com/michelbarbeau/gr-uwspr/blob/master/examples/WaveFilePlusNoiseDecode.png)
+
+Note: Paths to local files in "Wav File Source" blocks must be updated according to your local installation.
+
+Watch the following demo on Youtube.
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/98o4X0QdZ78" frameborder="0" gesture="media" allowfullscreen></iframe>
 
 
 
