@@ -5,11 +5,11 @@ This project is related to the paper:
 Michel Barbeau, Weak Signal Underwater Communications in the Ultra Low Frequency Band, Proceedings of the GNU Radio Conference, September 2017.
 
 
-# Copyright 2017 Carleton University.
+# Copyright 2018 Carleton University.
 # Author: Michel Barbeau
-# Version: November 12, 2017
+# Version: June 5, 2018
 
-## Installing 
+## Installing
 
 `git clone https://github.com/michelbarbeau/gr-uwspr`
 
@@ -21,7 +21,7 @@ cd gr-uwspr
 
 mkdir build
 
-cd build 
+cd build
 
 cmake ../
 
@@ -45,7 +45,7 @@ The source code of "wsprsim" is available here: http://physics.princeton.edu/pul
 
 The program "wsprsim" generates an audio file in the ".c2" format, named "VE3EMB.c2" in this example. It has in-phase and quadrature signals.
 
-For playing that file, there are two options. 
+For playing that file, there are two options.
 
 (1) Within GNU Radio companion, load and run the flowgraph "examples/c2ToAudioSink.grc".
 
@@ -70,7 +70,3 @@ Note: Paths to local files in "Wav File Source" blocks must be updated according
 Watch the following demo on Youtube.
 
 [![Demo](https://i1.ytimg.com/vi/98o4X0QdZ78/hqdefault.jpg)](https://youtu.be/98o4X0QdZ78)
-
-
-
-
