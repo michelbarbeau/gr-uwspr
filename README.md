@@ -1,8 +1,8 @@
-#  Weak Signal Underwater Communications in the Ultra Low Frequency Band in GNU Radio.
+#  Low Frequency and Weak Signal Underwater Communications in GNU Radio.
 
 This project is related to the paper:
 
-Michel Barbeau, Weak Signal Underwater Communications in the Ultra Low Frequency Band, Proceedings of the GNU Radio Conference, September 2017.
+Michel Barbeau, <a href="https://pubs.gnuradio.org/index.php/grcon/article/view/20"> Weak Signal Underwater Communications in the Ultra Low Frequency Band</a>, Proceedings of the GNU Radio Conference, September 2017.
 
 
 # Copyright 2018 Carleton University.
