@@ -93,6 +93,168 @@
     </param>
     <param>
       <key>_coordinate</key>
+      <value>(8, 5)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>Center_Frequency</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>1500</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(368, 5)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>Frame_Length</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>45000</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(136, 5)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>Half_Bandwidth</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>10</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(616, 5)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>Max_Freq_Drift</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(480, 5)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>Samples_Per_Baud</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>256</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(256, 5)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>Sampling_Freq</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>375</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
       <value>(184, 69)</value>
     </param>
     <param>
@@ -124,7 +286,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(440, 436)</value>
+      <value>(440, 452)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -136,7 +298,7 @@
     </param>
     <param>
       <key>high_cutoff_freq</key>
-      <value>1500+95</value>
+      <value>Center_Frequency+Half_Bandwidth</value>
     </param>
     <param>
       <key>id</key>
@@ -144,7 +306,7 @@
     </param>
     <param>
       <key>low_cutoff_freq</key>
-      <value>1500-95</value>
+      <value>Center_Frequency-Half_Bandwidth</value>
     </param>
     <param>
       <key>samp_rate</key>
@@ -175,7 +337,7 @@
     </param>
     <param>
       <key>cutoff_freq</key>
-      <value>1500+95</value>
+      <value>Center_Frequency+Half_Bandwidth</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -328,7 +490,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(584, 321)</value>
+      <value>(832, 481)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -489,61 +651,6 @@
     </param>
   </block>
   <block>
-    <key>blocks_throttle</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(352, 140)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>blocks_throttle_0</value>
-    </param>
-    <param>
-      <key>ignoretag</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>samples_per_second</key>
-      <value>samp_rate</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>float</value>
-    </param>
-    <param>
-      <key>vlen</key>
-      <value>1</value>
-    </param>
-  </block>
-  <block>
     <key>freq_xlating_fft_filter_ccc</key>
     <param>
       <key>alias</key>
@@ -614,7 +721,7 @@
     </param>
     <param>
       <key>center_freq</key>
-      <value>1500</value>
+      <value>Center_Frequency</value>
     </param>
     <param>
       <key>comment</key>
@@ -634,7 +741,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(472, 208)</value>
+      <value>(504, 208)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1271,7 +1378,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(696, 47)</value>
+      <value>(728, 47)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -1753,6 +1860,69 @@
     </param>
   </block>
   <block>
+    <key>uwspr_FDR</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fl</key>
+      <value>Frame_Length</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(520, 334)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>halfbandwidth</key>
+      <value>Half_Bandwidth</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>uwspr_FDR_0</value>
+    </param>
+    <param>
+      <key>maxfreqs</key>
+      <value>200</value>
+    </param>
+    <param>
+      <key>maxdrift</key>
+      <value>Max_Freq_Drift</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>spb</key>
+      <value>Samples_Per_Baud</value>
+    </param>
+    <param>
+      <key>fs</key>
+      <value>Sampling_Freq</value>
+    </param>
+  </block>
+  <block>
     <key>uwspr_WSPR_unpacker</key>
     <param>
       <key>alias</key>
@@ -1772,7 +1942,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(408, 385)</value>
+      <value>(672, 545)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1792,7 +1962,62 @@
     </param>
   </block>
   <block>
-    <key>uwspr_decoder</key>
+    <key>uwspr_sliding_window_stream_to_pdu</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>C</key>
+      <value>2</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>fl</key>
+      <value>Frame_Length</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(264, 327)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>uwspr_sliding_window_stream_to_pdu_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>fs</key>
+      <value>Sampling_Freq</value>
+    </param>
+    <param>
+      <key>shift</key>
+      <value>9</value>
+    </param>
+  </block>
+  <block>
+    <key>uwspr_sync_and_demodulate</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -1810,8 +2035,12 @@
       <value>True</value>
     </param>
     <param>
+      <key>fl</key>
+      <value>Frame_Length</value>
+    </param>
+    <param>
       <key>_coordinate</key>
-      <value>(248, 380)</value>
+      <value>(744, 351)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1819,11 +2048,11 @@
     </param>
     <param>
       <key>id</key>
-      <value>uwspr_decoder_0</value>
+      <value>uwspr_sync_and_demodulate_1</value>
     </param>
     <param>
       <key>maxdrift</key>
-      <value>0</value>
+      <value>Max_Freq_Drift</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -1832,6 +2061,14 @@
     <param>
       <key>minoutbuf</key>
       <value>0</value>
+    </param>
+    <param>
+      <key>spb</key>
+      <value>Samples_Per_Baud</value>
+    </param>
+    <param>
+      <key>fs</key>
+      <value>Sampling_Freq</value>
     </param>
   </block>
   <connection>
@@ -1848,13 +2085,19 @@
   </connection>
   <connection>
     <source_block_id>blocks_multiply_const_vxx_1</source_block_id>
+    <sink_block_id>blocks_float_to_complex_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_multiply_const_vxx_1</source_block_id>
     <sink_block_id>blocks_rms_xx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_multiply_const_vxx_1</source_block_id>
-    <sink_block_id>blocks_throttle_0</sink_block_id>
+    <sink_block_id>qtgui_freq_sink_x_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1867,18 +2110,6 @@
   <connection>
     <source_block_id>blocks_rms_xx_0</source_block_id>
     <sink_block_id>blocks_nlog10_ff_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blocks_throttle_0</source_block_id>
-    <sink_block_id>blocks_float_to_complex_0_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blocks_throttle_0</source_block_id>
-    <sink_block_id>qtgui_freq_sink_x_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -1908,9 +2139,15 @@
   </connection>
   <connection>
     <source_block_id>rational_resampler_xxx_0</source_block_id>
-    <sink_block_id>uwspr_decoder_0</sink_block_id>
+    <sink_block_id>uwspr_sliding_window_stream_to_pdu_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>uwspr_FDR_0</source_block_id>
+    <sink_block_id>uwspr_sync_and_demodulate_1</sink_block_id>
+    <source_key>out</source_key>
+    <sink_key>in</sink_key>
   </connection>
   <connection>
     <source_block_id>uwspr_WSPR_unpacker_0</source_block_id>
@@ -1919,7 +2156,13 @@
     <sink_key>print_pdu</sink_key>
   </connection>
   <connection>
-    <source_block_id>uwspr_decoder_0</source_block_id>
+    <source_block_id>uwspr_sliding_window_stream_to_pdu_0</source_block_id>
+    <sink_block_id>uwspr_FDR_0</sink_block_id>
+    <source_key>out</source_key>
+    <sink_key>in</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>uwspr_sync_and_demodulate_1</source_block_id>
     <sink_block_id>uwspr_WSPR_unpacker_0</sink_block_id>
     <source_key>out</source_key>
     <sink_key>in</sink_key>

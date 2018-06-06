@@ -30,12 +30,13 @@ class c2file_source_impl : public c2file_source
 {
 private:
    bool d_repeat;
+   float d_drift_rate;
    int maxpts; // maximum number of points
    float *idat; float *qdat; // in-phase and quadrature signals
    unsigned sample_idx; // sample index
 
 public:
-   c2file_source_impl(const char *filename, bool repeat);
+   c2file_source_impl(const char *filename, bool repeat, float drift_rate);
    ~c2file_source_impl();
    // Where all the action really happens
    int work(int noutput_items,

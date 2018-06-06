@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2017 Michel Barbeau, Carleton University.
+ * Copyright 2018 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,10 +31,10 @@ namespace gr {
 namespace uwspr {
 
 c2file_source::sptr
-c2file_source::make(const char *filename, bool repeat)
+c2file_source::make(const char *filename, bool repeat, float drift_rate)
 {
         return gnuradio::get_initial_sptr
-                       (new c2file_source_impl(filename, repeat));
+                       (new c2file_source_impl(filename, repeat, drift_rate/375.0));
 }
 
 /*
@@ -45,11 +45,11 @@ c2file_source::make(const char *filename, bool repeat)
  *
  * Copyright 2014-2015, Steven Franke, K9AN
  */
-c2file_source_impl::c2file_source_impl(const char* filename, bool repeat)
+c2file_source_impl::c2file_source_impl(const char* filename, bool repeat, float drift_rate)
         : gr::sync_block("c2file_source",
                          gr::io_signature::make(0, 0, 0),
                          gr::io_signature::make(1,1, sizeof(gr_complex))),
-        d_repeat(repeat)
+        d_repeat(repeat), d_drift_rate(drift_rate)
 {
         char *ptr_to_infile; double *freq; int *wspr_type;
 
@@ -111,15 +111,11 @@ c2file_source_impl::work(int noutput_items,
                          gr_vector_void_star &output_items)
 {
         gr_complex *out = (gr_complex *) output_items[0];
-
         int i;
         int nout;
         nout = 0;
-
-        int maxsamples;
-        maxsamples = 45000;
-        //maxsamples = 50000;
-
+        static float drift = 0.0; // simulated frequency drift
+        int maxsamples = 45000;
         if (sample_idx >=maxsamples) {
                 if(!d_repeat) {
                         return -1; // done!
@@ -127,16 +123,16 @@ c2file_source_impl::work(int noutput_items,
                         sample_idx = 0;
                 }
         }
-
         for(i = 0; i < noutput_items; i++) {
                 if (sample_idx >=maxsamples) {
                         break;
                 }
-                out[i] = gr_complex (idat[sample_idx],qdat[sample_idx]);
+                out[i] = gr_complex(idat[sample_idx],qdat[sample_idx])*
+                   exp(gr_complex(0, sample_idx * M_PI * drift / 375.0));
+                drift += d_drift_rate; // increment frequency drift
                 sample_idx++;
                 nout++;
         }
-
         // Tell runtime system how many output items we produced.
         return nout;
 }
