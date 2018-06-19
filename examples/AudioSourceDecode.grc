@@ -286,7 +286,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(440, 452)</value>
+      <value>(440, 492)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1107,7 +1107,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(264, 519)</value>
+      <value>(264, 543)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -1613,7 +1613,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(264, 431)</value>
+      <value>(264, 447)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -1866,6 +1866,10 @@
       <value></value>
     </param>
     <param>
+      <key>cf</key>
+      <value>1500</value>
+    </param>
+    <param>
       <key>comment</key>
       <value></value>
     </param>
@@ -1883,7 +1887,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(520, 334)</value>
+      <value>(528, 331)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1912,6 +1916,10 @@
     <param>
       <key>minoutbuf</key>
       <value>0</value>
+    </param>
+    <param>
+      <key>threshold</key>
+      <value>10</value>
     </param>
     <param>
       <key>spb</key>
@@ -1989,7 +1997,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(264, 327)</value>
+      <value>(264, 359)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2023,6 +2031,10 @@
       <value></value>
     </param>
     <param>
+      <key>cf</key>
+      <value>1500</value>
+    </param>
+    <param>
       <key>comment</key>
       <value></value>
     </param>
@@ -2040,7 +2052,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(744, 351)</value>
+      <value>(744, 345)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2049,6 +2061,10 @@
     <param>
       <key>id</key>
       <value>uwspr_sync_and_demodulate_1</value>
+    </param>
+    <param>
+      <key>maxfreqs</key>
+      <value>200</value>
     </param>
     <param>
       <key>maxdrift</key>

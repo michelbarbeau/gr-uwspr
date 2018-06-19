@@ -23,36 +23,12 @@
 
 #include <uwspr/FDR.h>
 #include <fftw3.h>
+#include "candidate_t.h"
+#include "slm.h"
 
 namespace gr {
   namespace uwspr {
-
-    // candidate frequency structures
-    typedef struct {
-      float drift;
-    } mode_linear;
-    typedef struct {
-      double va; // velocity
-      double ma; // slope
-      int x, y; // start coordinates
-    } mode_nonlinear;
-    enum Modes { linear, nonlinear};
-    typedef struct {
-       float freq;
-       float snr;
-       float drift;
-       float sync;
-       int shift;
-       Modes m_type; // mode type (1: linear, 2: nonlinear)
-       union {
-         // linear frequency drift model
-         mode_linear m_linear;
-         // straight-line nonlinear frequency drift model
-         mode_nonlinear m_nonlinear;
-       };
-    }  candidate_t;
-
-    class FDR_impl : public FDR
+    class FDR_impl : public FDR, public SLM
     {
      private:
        // asynchronous input port
@@ -83,6 +59,8 @@ namespace gr {
        int hpbm;
        // half pass Bandwidth
        int halfbandwidth;
+       // carrier frequency (used for Doppler shift estimation)
+       int carrierfrequency;
        // pointers to the DFTs
        fftwf_complex *fftin, *fftout;
        // number of DFTs
@@ -101,17 +79,19 @@ namespace gr {
        static int floatcomp(const void* elem1, const void* elem2);
        // delta frequency
        float df;
-       // indices of modulation tones
-       int tone_1Hz_idx, tone_3Hz_idx;
-       // array of candidate printfrequencies
+       // array of candidate frequencies
        candidate_t * candidates;
        // used for spectrum normalization
        float min_snr, snr_scaling_factor;
        // print a list of frequencies
        static int printfrequencies(int npk, float freq[]);
+       void powersum(
+         int k0, int k, int ifd, float *ss, float *pow);
+       // Nonlinear vs linear power ratio required
+       float threshold;
      public:
       FDR_impl(int fs, int fl, int spb, int maxdrift, int maxfreqs,
-        int halfbandwidth);
+        int halfbandwidth, int cf, int threshold);
       ~FDR_impl();
     };
   } // namespace uwspr

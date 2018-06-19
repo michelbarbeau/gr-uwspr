@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2017 Michel Barbeau, Carleton University.
+ * Copyright 2018 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,28 +18,28 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef INCLUDED_HELPERS_H
-#define INCLUDED_HELPERS_H
+// Straight Line Model
+#ifndef INCLUDED_SLM_H
+#define INCLUDED_SLM_H
 
-#include <string.h>
-#include <stdint.h>
+#include "candidate_t.h"
 
 namespace gr {
-   namespace uwspr {
-
-class helpers
-{
-   public:
-      uint32_t nhash( const void * key, size_t length, uint32_t initval);
-      void unpack50(  char *dat, int32_t *n1, int32_t *n2 );
-      int unpackcall( int32_t ncall, char *call );
-      int unpackgrid( int32_t ngrid, char *grid);
-      int unpackpfx( int32_t nprefix, char *call);
-      int unpk_( char *message, char *hashtab,
-                char *call_loc_pow, char *callsign);
-};
-
-   }   // namespace uwspr
+ namespace uwspr {
+   class SLM
+   {
+      public:
+       // returns frequency drift according to the straight line model
+       int slmFrequencyDrift(mode_nonlinear m_nl, int cf, float t);
+       // generator of trajectory parameters for the straight line model
+       bool slmGenerator(mode_nonlinear *m_nl);
+       // initialize the generator
+       void slmGeneratorInit();
+       // control variable of generator
+       int step;
+       SLM() {};
+       ~SLM() {};
+   };
+ } // namespace uwspr
 } // namespace gr
-
-#endif /* INCLUDED_HELPERS_H */
+#endif /* INCLUDED_SLM_H */

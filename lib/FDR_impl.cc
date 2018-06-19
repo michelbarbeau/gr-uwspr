@@ -33,20 +33,20 @@
 #include "debugmacro.h"
 
 namespace gr {
-  namespace uwspr {
+ namespace uwspr {
 
     FDR::sptr
     FDR::make(int fs, int fl, int spb, int maxdrift, int maxfreqs,
-      int halfbandwidth)
+      int halfbandwidth, int cf, int threshold)
     {
       return gnuradio::get_initial_sptr
-        (new FDR_impl(fs, fl, spb, maxdrift, maxfreqs, halfbandwidth));
+        (new FDR_impl(fs, fl, spb, maxdrift, maxfreqs, halfbandwidth, cf, threshold));
     }
 
     /* The private constructor
      */
     FDR_impl::FDR_impl(int fs, int fl, int spb, int maxdrift, int maxfreqs,
-      int halfbandwidth)
+      int halfbandwidth, int cf, int threshold)
       : gr::block("FDR",
               gr::io_signature::make(0, 0, 0),
               gr::io_signature::make(0, 0, 0))
@@ -73,9 +73,12 @@ namespace gr {
       candidates = new candidate_t[maxfreqs];
       // half pass bandwidth
       this->halfbandwidth = halfbandwidth;
+      // carrier frequency
+      this->carrierfrequency = cf;
+      // Nonlinear vs linear power ratio required
+      this->threshold = (float)threshold;
       // init DFT size (over two symbols)
       size = 2*spb;
-      log("DFT size is %d bins", size);
       int maxfreq = (int)((float)fs/2.0);
       log("Max frequency range is plus, minus %d Hertz", maxfreq);
       // validate half band pass bandwidth
@@ -89,9 +92,6 @@ namespace gr {
       // init delta frequency
       df = (float)fs/(float)size;
       log("Delta frequency (df) is %9.9f Hz", df);
-      tone_1Hz_idx = (int)round(1.0/df);
-      tone_3Hz_idx = (int)round(3.0/df);
-      log("Tone indices are %d (1 Hz) and %d (3 Hz)",tone_1Hz_idx,tone_3Hz_idx);
       m = size/2;
       log("Frequency index range is -%d,...,-1,0,1,...,%d", m, m-1);
       hpbm = ceil( (int) (float)halfbandwidth/df);
@@ -183,6 +183,31 @@ namespace gr {
     }
 
 #include "pr3.h"
+
+   // Calculate synchro bit correlated power and total power
+   void FDR_impl::powersum(
+     int k0, int k, int ifd, float *ss, float *pow) {
+     // k0 = time offset in sample window, in half symbols, [0,26[
+     // k = symbol index, in [0,162[
+     // ifd = frequency index, in [0,size[
+     // ss = correlation with synchro bits power
+     // pow = total power
+     float p[4];
+     // translate symbol index "k" to half-symbol index "kindex"
+     int kindex=k0+2*k;
+     // symbol 00
+     p[0]=sqrt(ps[kindex][ifd-3]);
+     // symbol 01
+     p[1]=sqrt(ps[kindex][ifd-1]);
+     // symbol 10
+     p[2]=sqrt(ps[kindex][ifd+1]);
+     // symbol 11
+     p[3]=sqrt(ps[kindex][ifd+3]);
+     // correlation with synchro bits power
+     *ss = *ss+(2*pr3[k]-1)*((p[1]+p[3])-(p[0]+p[2]));
+     // total power
+     *pow = *pow+p[0]+p[1]+p[2]+p[3];
+   }
 
     /* Handler of input message
      */
@@ -279,6 +304,7 @@ namespace gr {
                npk++;
             }
       }
+      log("Number of candidate frequencies (npk) is %d", npk);
       // bubble sort on SNR
       int pass;
       candidate_t tmp;
@@ -304,74 +330,129 @@ namespace gr {
          span of 162 symbols, with deviation equal to 0 at the center of the
          signal vector.
        */
-      int idrift,ifr,if0,ifd,k0;
-      int kindex;
-      float sync1;
-      float smax,ss,pow,p[4];
+      int drift, ifr, if0, ifd, k0;
+      float sync, ss, pow, t;
+      // trajectory parameters of vehicles
+      mode_nonlinear m_nl;
+      // trajectory parameters of vehicle "b", are constant
+      const double vb = 0; const double mb = 0; int xb = 0, yb = 0;
       for(j=0; j<npk; j++) { // for each candidate...
-         smax=-1e30;
-         if0=candidates[j].freq/df+m; // frequency to index
-         for (ifr=if0-2; ifr<=if0+2; ifr++) { //Freq search
-            // search in the interval [1 26] half-symbols,
-            for( k0=0; k0<26; k0++) { //Time search
-               for (idrift=-maxdrift; idrift<=maxdrift; idrift++) {                          //Drift search
-                  ss=0.0;
-                  pow=0.0;
-                  for (k=0; k<162; k++) { // sum of power over symbols
-                     ifd=ifr+((float)k-81.0)/81.0*( (float)idrift )/(2.0*df);
-                     kindex=k0+2*k;
-                     p[0]=sqrt(ps[kindex][ifd-tone_3Hz_idx]);
-                     p[1]=sqrt(ps[kindex][ifd-tone_1Hz_idx]);
-                     p[2]=sqrt(ps[kindex][ifd+tone_1Hz_idx]);
-                     p[3]=sqrt(ps[kindex][ifd+tone_3Hz_idx]);
-                     ss=ss+(2*pr3[k]-1)*((p[1]+p[3])-(p[0]+p[2]));
-                     pow=pow+p[0]+p[1]+p[2]+p[3];
-                  }
-                  sync1=ss/pow;
-                  if(sync1 > smax) {                               //Save coarse parameters
-                     smax=sync1;
-                     candidates[j].shift=128*(k0+1);
-                     candidates[j].drift=idrift;
-                     candidates[j].freq=(ifr-m)*df; // index to frequency
-                     candidates[j].sync=sync1;
-                     // a linear case
-                     candidates[j].m_type = linear;
-                     candidates[j].m_linear.drift = idrift;
-                  }
+       candidates[j].sync=-1e30; // synchro bit power versus total power
+       if0=candidates[j].freq/df+m; // initial frequency to index
+       // in the following embedded loops, tune frequency, resolve
+       // start time and find best frequency drift (linear or nonlinear)
+       for (ifr=if0-2; ifr<=if0+2; ifr++) { // tune freq search
+         // search in the interval [1 26] half-symbols,
+         for(k0=0; k0<26; k0++) { // start search
+           // try linear frequency drift
+           for (drift=-maxdrift; drift<=maxdrift; drift++) {
+             //log("Candidate %d, Linear drift %d", j, drift);
+             ss=0.0; pow=0.0;
+             for (k=0; k<162; k++) { // sum of power over symbols
+               // linear drift
+               ifd=ifr+((float)k-81.0)/81.0*( (float)drift )/(2.0*df);
+               powersum(k0, k, ifd, &ss, &pow);
+             }
+             // synchro bit power versus total power
+             sync = ss/pow;
+             //log("sync is %9.9f", sync);
+             // max for candidate frequency at index "j"?
+             if(sync>candidates[j].sync) { // yes, save coarse parameters
+               candidates[j].shift=128*k0;
+               candidates[j].freq=(ifr-m)*df; // index to tuned frequency
+               candidates[j].sync=sync;
+               // a linear case
+               candidates[j].m_type = linear;
+               candidates[j].m_linear.drift = drift;
+               #if DEBUG
+               if (drift) {
+               log("Non null linear candidate, j=%d, freq=%2.2f Hz, drift=%d",
+                 j, candidates[j].freq, drift);
                }
-            }
+               #endif
+             }
+           } // end of linear drift search
+           // try nonlinear frequency drift
+           slmGeneratorInit(); // init generator of straight line trajectories
+           while (slmGenerator(&m_nl)) {
+             //log("Candidate %d, Nonlinear drift", ifr);
+             ss=0.0; pow=0.0;
+             for (k=0; k<162; k++) { // sum of power over symbols
+               // map symbol index to delay in seconds
+               t = k * 111 / 162;
+               // determine frequency drift
+               ifd = ifr +
+                 (float)slmFrequencyDrift(m_nl, carrierfrequency, t) / df;
+               powersum(k0, k, ifd, &ss, &pow);
+             }
+             //log("ss = %9.9f, pow = %9.9f", ss, pow);
+             // synchro bit power versus total power
+             sync = ss/pow;
+             // more than threshold times current max
+             if(sync/candidates[j].sync>threshold) { // yes, save params
+               log("Nonlinear candidate, j=%d, freq=%2.2f Hz",
+                  j, candidates[j].freq);
+               log("   New/Old sync=%2.2f", sync/candidates[j].sync);
+               // translate half-symbol index into seconds
+               candidates[j].shift=128*k0;
+               candidates[j].freq=(ifr-m)*df; // index to tuned frequency
+               candidates[j].sync=sync;
+               // a non linear case
+               candidates[j].m_type = nonlinear;
+               candidates[j].m_nonlinear = m_nl;
+
+             }
+           } // end of nonlinear drift search
          }
-      }
+       }
+       //log("Candidate frequency (j) %d, Type is %d", j, candidates[j].m_type);
+     } // end of frequency tuning, start time and drift search
 #if DEBUG
       // printfrequencies(npk, freq0);
 #endif
-      // 2nd tuple component is number of candidate frequencies
-      pmt::pmt_t n = pmt::from_long(npk);
-      // 3rd tuple component is frequencies
-      pmt::pmt_t frequencies = pmt::make_vector(npk, pmt::from_double(0.0));
-      // 4th tuple component is SNRs
-      pmt::pmt_t SNRs = pmt::make_vector(npk, pmt::from_double(0.0));
-      // 5th tuple componet is drifts
-      pmt::pmt_t DRIFTs = pmt::make_vector(npk, pmt::from_double(0.0));
-      // 6th tuple componet is syncs
-      pmt::pmt_t SYNCs = pmt::make_vector(npk, pmt::from_double(0.0));
-      // 7th tuple componet is syncs
-      pmt::pmt_t SHIFTs = pmt::make_vector(npk, pmt::from_long(0));
+     // number of candidate frequencies
+     pmt::pmt_t n = pmt::from_long(npk);
+     // store candidate frequencies in polymorphic data types instances
+     pmt::pmt_t candidate_freqs = pmt::make_vector(npk,pmt::PMT_NIL);
       for (i = 0; i < npk; i++) {
-          pmt::vector_set(frequencies,i,pmt::from_double(candidates[i].freq));
-          pmt::vector_set(SNRs,i,pmt::from_double(candidates[i].snr));
-          pmt::vector_set(DRIFTs,i,pmt::from_double(candidates[i].drift));
-          pmt::vector_set(SYNCs,i,pmt::from_double(candidates[i].sync));
-          pmt::vector_set(SHIFTs,i,pmt::from_long(candidates[i].shift));
+        pmt::pmt_t freq_tuple;
+        switch(candidates[i].m_type) {
+          case linear : {
+            freq_tuple =
+              pmt::make_tuple(
+                pmt::from_long(linear),
+                pmt::from_double(candidates[i].freq),
+                pmt::from_double(candidates[i].snr),
+                pmt::from_double(candidates[i].sync),
+                pmt::from_long(candidates[i].shift),
+                pmt::from_double(candidates[i].m_linear.drift));
+            break;
+          }
+          case nonlinear : {
+            freq_tuple =
+              pmt::make_tuple(
+                pmt::from_long(nonlinear),
+                pmt::from_double(candidates[i].freq),
+                pmt::from_double(candidates[i].snr),
+                pmt::from_double(candidates[i].sync),
+                pmt::from_long(candidates[i].shift),
+                pmt::from_double(candidates[i].m_nonlinear.va),
+                pmt::from_double(candidates[i].m_nonlinear.ma),
+                pmt::from_long(candidates[i].m_nonlinear.xa),
+                pmt::from_long(candidates[i].m_nonlinear.ya));
+           break;
+          }
+        }
+        pmt::vector_set(candidate_freqs,i,freq_tuple);
       }
-      // PDU payload is a tuple: 1st compunent is vector of samples (in-phase & quadrature),
-      pmt::pmt_t tuple =
-         pmt::make_tuple(vector,n,frequencies,SNRs,DRIFTs,SYNCs,SHIFTs);
+      // PDU payload is a tuple: 1st compunent is vector of samples
+      // (in-phase & quadrature)
+      pmt::pmt_t tuple = pmt::make_tuple(vector,n,candidate_freqs);
       // store into PDU: CAR is NULL dictionary, CDR is a tuple
       pmt::pmt_t pdu(pmt::cons(pmt::PMT_NIL, tuple));
+      log("Posting PDU");
       // post the PDU
       message_port_pub(out_port, pdu);
     }
-
   } /* namespace uwspr */
 } /* namespace gr */
