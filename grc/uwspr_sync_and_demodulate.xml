@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<block>
+  <name>Sync and Demodulate</name>
+  <key>uwspr_sync_and_demodulate</key>
+  <category>uwspr</category>
+  <import>import uwspr</import>
+  <make>uwspr.sync_and_demodulate($fs,$fl,$spb,$maxdrift,$maxfreqs,$cf)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type
+  <param>
+    <name>...</name>
+    <key>...</key>
+    <type>...</type>
+  </param>
+  -->
+  <param>
+    <name>Sampling Freq</name>
+    <key>fs</key>
+    <value>375</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Frame Length</name>
+    <key>fl</key>
+    <value>45000</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Samples/baud</name>
+    <key>spb</key>
+    <value>256</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Max Freq Drift</name>
+    <key>maxdrift</key>
+    <value>0</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Max Candidate Freqs</name>
+    <key>maxfreqs</key>
+    <value>200</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Carrier Frequency</name>
+    <key>cf</key>
+    <value>1500</value>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>message</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>message</type>
+  </source>
+  <doc>
+    Copyright 2018 Michel Barbeau, Carleton University. Using in input a PDU containing "fl" samples, constructs a frequency domain representation. Produces a PDU contained the frequency domain representation and indices of signal tracking function.
+    Parameters
+    fs = sampling frequency (in samples/second)
+    fl = data frame length (in samples)
+    spd = number of samples in a baud (in symbols)
+    maxdrift = maximum acceptable frequency drift during a data frame (in Hz)
+    maxfreqs = maximum number of frequencies consider during the search
+    cf = carrier frequency (in Hz) used to calculate the nonlinear Doppler
+       shift, normally use the center frequency
+  </doc>
+</block>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<block>
+  <name>Sliding Window Stream to PDU</name>
+  <key>uwspr_sliding_window_stream_to_pdu</key>
+  <category>uwspr</category>
+  <import>import uwspr</import>
+  <make>uwspr.sliding_window_stream_to_pdu($fs,$fl,$shift,$C)</make>
+  <!-- Make one 'param' node for every Parameter you want settable from the GUI.
+       Sub-nodes:
+       * name
+       * key (makes the value accessible as $keyname, e.g. in the make node)
+       * type
+          -->
+  <param>
+    <name>Sampling Freq</name>
+    <key>fs</key>
+    <value>375</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Frame Length</name>
+    <key>fl</key>
+    <value>45000</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Shift</name>
+    <key>shift</key>
+    <value>9</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Capacity</name>
+    <key>C</key>
+    <value>2</value>
+    <type>int</type>
+  </param>
+
+  <!-- Make one 'sink' node per input. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <sink>
+    <name>in</name>
+    <type>complex</type>
+  </sink>
+
+  <!-- Make one 'source' node per output. Sub-nodes:
+       * name (an identifier for the GUI)
+       * type
+       * vlen
+       * optional (set to 1 for optional inputs) -->
+  <source>
+    <name>out</name>
+    <type>message</type>
+  </source>
+  <doc>
+    Copyright 2018 Michel Barbeau, Carleton University. Accepts a continous stream of time-domain samples. The samples are pushed in ring buffer. When at least "fl"~seconds of samples are buffered, the first "fl"~seconds (buffer window) become the
+    payload of a PDU that it posted on the output port. The window on the ring buffer is slide "shift" samples. Parameters fs = sampling frequency (samples/second) fl = frame length (samples) shift = buffer window shift from PUD to PDU (seconds) C =
+    capacity of ring buffer (frames)
+  </doc>
+</block>

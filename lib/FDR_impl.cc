@@ -382,7 +382,7 @@ namespace gr {
                t = k * 111 / 162;
                // determine frequency drift
                ifd = ifr +
-                 (float)slmFrequencyDrift(m_nl, carrierfrequency, t) / df;
+                 slmFrequencyDrift(m_nl, carrierfrequency, t) / df;
                powersum(k0, k, ifd, &ss, &pow);
              }
              //log("ss = %9.9f, pow = %9.9f", ss, pow);

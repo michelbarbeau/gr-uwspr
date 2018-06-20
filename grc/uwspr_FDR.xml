@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<block>
+  <name>FDR</name>
+  <key>uwspr_FDR</key>
+  <category>uwspr</category>
+  <import>import uwspr</import>
+  <make>uwspr.FDR($fs,$fl,$spb,$maxdrift,$maxfreqs,$halfbandwidth,$cf,$threshold)</make>
+  <param>
+    <name>Sampling Freq</name>
+    <key>fs</key>
+    <value>375</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Frame Length</name>
+    <key>fl</key>
+    <value>45000</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Samples/baud</name>
+    <key>spb</key>
+    <value>256</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Max Freq Drift</name>
+    <key>maxdrift</key>
+    <value>0</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Max Candidate Freqs</name>
+    <key>maxfreqs</key>
+    <value>200</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Half Bandwidth</name>
+    <key>halfbandwidth</key>
+    <value>187</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Carrier Frequency</name>
+    <key>cf</key>
+    <value>1500</value>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Nonlinear threshold</name>
+    <key>threshold</key>
+    <value>10</value>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>message</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>message</type>
+  </source>
+  <doc>
+    Copyright 2018 Michel Barbeau, Carleton University. Using in input a PDU
+      containing "fl" samples, constructs a frequency domain representation.
+      Produces a PDU contained the frequency domain representation and indices
+      of signal tracking functions.
+    Parameters
+    fs = Sampling frequency (in samples/second).
+    fl = Data frame length (in samples).
+    spd = Number of samples in a baud (in symbols).
+    maxdrift = Mmaximum acceptable linear frequency drift during a data frame
+      (in Hz). To disable linear frequency drift search set this parameter to
+      null.
+    maxfreqs = Mmaximum number of frequencies consider during the search.
+    halfbandwidth = Half pass bandwidth (in Hz). In very noisy conditions, make
+     it narrow but not less than 5 Hz.
+    cf = Carrier frequency (in Hz) used to calculate the nonlinear Doppler
+       shift, normally use the center frequency.
+    threshold = Nonlinear vs linear power ratio required for nonlinear model to
+       be appled. To disable the nonlinear search, set this paramater to a very
+       high value, e.g., 100.
+  </doc>
+</block>

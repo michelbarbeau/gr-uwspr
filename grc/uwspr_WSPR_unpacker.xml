@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <block>
-  <name>WSPR_unpacker</name>
+  <name>WSPR Unpacker</name>
   <key>uwspr_WSPR_unpacker</key>
   <category>uwspr</category>
   <import>import uwspr</import>

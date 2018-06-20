@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2017 Michel Barbeau, Carleton University.
+ * Copyright 2018 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,8 @@ private:
    unsigned sample_idx; // sample index
 
 public:
-   c2file_source_impl(const char *filename, bool repeat, float drift_rate);
+   c2file_source_impl(const char *filename, bool repeat=false,
+     float drift_rate=0.0);
    ~c2file_source_impl();
    // Where all the action really happens
    int work(int noutput_items,

@@ -355,8 +355,6 @@ namespace gr {
      static float fplast=-10000.0;
      // delta time (dt) and delta (frequency)
      static float dt=1.0/375.0, df=375.0/256.0;
-     static float pi=3.14159265358979323846;
-     float twopidt;
      // baseband frequencies of symbols
      float delta[] = { -df*1.5, -df*0.5, df*0.5, df*1.5 };
      int i, j, k, lag, n;
@@ -364,7 +362,7 @@ namespace gr {
      float p[4]; // power correlated with symbols
      float cmet,totp,syncmax,fac;
      float c[4][256], s[4][256];
-     float dphi[4], cdphi[4], sdphi[4];
+     float cdphi, sdphi;
      float ss; // correlation with synchronization soft symbols
      float f0=0.0, fp, fbest=0.0, fsum=0.0, f2sum=0.0, fsymb[162];
      int best_shift = 0, ifreq;
@@ -373,7 +371,6 @@ namespace gr {
      if( mode == 0 ) {ifmin=0; ifmax=0; fstep=0.0; f0=*f1; }
      if( mode == 1 ) {lagmin=*shift1; lagmax=*shift1; f0=*f1; }
      if( mode == 2 ) {lagmin=*shift1; lagmax=*shift1; ifmin=0; ifmax=0; f0=*f1; }
-     twopidt=2*pi*dt;
      for(ifreq=ifmin; ifreq<=ifmax; ifreq++) { // frequency search
        f0=*f1+ifreq*fstep;
        for(lag=lagmin; lag<=lagmax; lag=lag+lagstep) { // time search
@@ -390,7 +387,7 @@ namespace gr {
               // nonlinear drift search
               t = i * 111 / 162; // map symbol index to delay in seconds
               case nonlinear : {
-                fp = f0 + (float)slmFrequencyDrift(candidate.m_nonlinear,
+                fp = f0 + slmFrequencyDrift(candidate.m_nonlinear,
                   carrierfrequency, t);
                 break;
                }
@@ -399,15 +396,14 @@ namespace gr {
            if( i==0 || (fp != fplast) ) {
              for (j=0; j<4; j++) {
                // calculate waveform for each sample of symbol
-               dphi[j]=twopidt*(fp+delta[j]); // phase of symbol j
-               cdphi[j]=cos(dphi[j]); // cosine increment of a sample
-               sdphi[j]=sin(dphi[j]); // sine increment of a sample
+               cdphi=cos(2*M_PI*dt*(fp+delta[j])); // cosine increment of a sample
+               sdphi=sin(2*M_PI*dt*(fp+delta[j])); // sine increment of a sample
                c[j][0]=1; s[j][0]=0; // start at phase 0 radian
                for (k=1; k<256; k++) { // k = sample in symbol index
                  // in-phase (cosine)
-                 c[j][k]=c[j][k-1]*cdphi[j] - s[j][k-1]*sdphi[j];
+                 c[j][k]=c[j][k-1]*cdphi - s[j][k-1]*sdphi;
                  // quadrature (sine)
-                 s[j][k]=c[j][k-1]*sdphi[j] + s[j][k-1]*cdphi[j];
+                 s[j][k]=c[j][k-1]*sdphi + s[j][k-1]*cdphi;
                }
                fplast = fp;
              }
@@ -524,7 +520,7 @@ namespace gr {
      int h = (dtime / 3600) % 24;
      int m = (dtime / 60) % 60;
      int s = dtime % 60;
-     fprintf(msglogfile, "Ellapsed time: %02d:%02d:%02d\n", h, m, s);
+     fprintf(msglogfile, "Elapsed time: %02d:%02d:%02d\n", h, m, s);
    }
 
    void sync_and_demodulate_impl::demodulate(pmt::pmt_t msg)
@@ -533,13 +529,11 @@ namespace gr {
       */
      int i,j,k;
      signed char message[]={-9,13,-35,123,57,-39,64,0,0,0,0};
-     int delta,maxpts=65536;
+     int delta, maxpts=65536;
      int shift1, lagmin, lagmax, lagstep, ifmin, ifmax, worth_a_try, not_decoded;
      unsigned int metric, cycles, maxnp;
      float df=375.0/256.0/2; // or df=775/256
-     float dt=1.0/375.0, dt_print;
-     double dialfreq_cmdline=0.0, dialfreq, freq_print;
-     double dialfreq_error=0.0;
+     float dt=1.0/375.0;
      float fmin=-110, fmax=110;
      float f1, fstep, sync1, drift1;
      // Parameters used for performance-tuning:

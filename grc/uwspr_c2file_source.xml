@@ -4,26 +4,39 @@
   <key>C2_File_Source</key>
   <category>uwspr</category>
   <import>import uwspr</import>
-  <make>uwspr.c2file_source($file, $repeat)</make>
-<param>
-  <name>File</name>
-  <key>file</key>
-<value/>
-<type>file_open</type>
-</param>
-<param>
-  <name>Repeat</name>
-  <key>repeat</key>
-  <value>No</value>
-  <type>enum</type>
-  <option>
-    <name>No</name>
-    <key>False</key>
-  </option>
-  <option>
-    <name>Yes</name>
-    <key>True</key>
-  </option>
-</param>
-<source><name>out</name><type>complex</type><nports>1</nports></source>
+  <make>uwspr.c2file_source($file, $repeat, $drift_rate)</make>
+  <param>
+    <name>File</name>
+    <key>file</key>
+    <value/>
+    <type>file_open</type>
+  </param>
+  <param>
+    <name>Repeat</name>
+    <key>repeat</key>
+    <value>No</value>
+    <type>enum</type>
+    <option>
+      <name>No</name>
+      <key>False</key>
+    </option>
+    <option>
+      <name>Yes</name>
+      <key>True</key>
+    </option>
+  </param>
+  <param>
+    <name>Freq Drift Rate</name>
+    <key>drift_rate</key>
+    <value>0.0</value>
+    <type>float</type>
+  </param>
+  <source>
+    <name>out</name>
+    <type>complex</type>
+    <nports>1</nports>
+  </source>
+  <doc>
+    Copyright 2018 Michel Barbeau, Carleton University. Create a source reading samples from a "c2" file (a signal complex envelop). Parameters Freqquency Drift Rate = frequency drift per second (Hertz)
+  </doc>
 </block>

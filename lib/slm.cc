@@ -35,11 +35,11 @@
     // Communications in Underwater Networks", 2018.
     // The body of this function was originally coded by:
     // Jamil Kassem, Lebanese International University, 2018
-    int SLM::slmFrequencyDrift(mode_nonlinear m_nl, int cf, float t)
+    float SLM::slmFrequencyDrift(mode_nonlinear m_nl, float cf, float t)
      // m_nl = trajectory parameters
      // t = time, in seconds
     {
-      const int c = 1500; // speed of sound in water, in m/s
+      const float c = 1500.0; // speed of sound in water, in m/s
       // velocity vetor of vehicle of "a" (Eq. 11)
       double a[] = {m_nl.va / sqrt(1 + m_nl.ma * m_nl.ma),
         m_nl.ma * m_nl.va / sqrt(1 + m_nl.ma * m_nl.ma)};
@@ -49,10 +49,10 @@
       double b[] = {m_nl.vb / sqrt(1 + m_nl.mb *m_nl.mb),
         m_nl.mb * m_nl.vb / sqrt(1 + m_nl.mb * m_nl.mb)};
       // initial position vehicle "b"
-      double bBar[] = {m_nl.xb, m_nl.yb};
+      double bBar[] = { m_nl.xb, m_nl.yb };
       // sign of difference velocity vector projections on position
       // connecting vector
-      int Sign=-(int((b[0]-a[0]+b[1]-a[1])>0)*2-1);
+      float Sign=-((b[0]-a[0]+b[1]-a[1])>0)*2-1;
       //
       double normOfDotProduct=(a[0]-b[0])*((b[0]-a[0])*t+bBar[0]-aBar[0]) +
         (a[1]-b[1])*((b[1]-a[1])*t+bBar[1]-aBar[1]);
@@ -60,7 +60,7 @@
       double normOfUt=sqrt(pow((b[0]-a[0])*t+bBar[0]-aBar[0],2) +
         pow((b[1]-a[1])*t+bBar[1]-aBar[1],2));
       if(normOfUt==0) {
-        return 0;
+        return 0.0;
       } else {
         return cf*(Sign*normOfDotProduct)/(normOfUt*c);
       }

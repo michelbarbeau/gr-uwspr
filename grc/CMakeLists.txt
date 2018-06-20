@@ -16,9 +16,10 @@
 # along with GNU Radio; see the file COPYING.  If not, write to
 # the Free Software Foundation, Inc., 51 Franklin Street,
 # Boston, MA 02110-1301, USA.
-
 install(FILES
     uwspr_c2file_source.xml
-    uwspr_decoder.xml
-    uwspr_WSPR_unpacker.xml DESTINATION share/gnuradio/grc/blocks
+    uwspr_WSPR_unpacker.xml
+    uwspr_sync_and_demodulate.xml
+    uwspr_sliding_window_stream_to_pdu.xml
+    uwspr_FDR.xml DESTINATION share/gnuradio/grc/blocks
 )

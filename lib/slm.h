@@ -30,7 +30,7 @@ namespace gr {
    {
       public:
        // returns frequency drift according to the straight line model
-       int slmFrequencyDrift(mode_nonlinear m_nl, int cf, float t);
+       float slmFrequencyDrift(mode_nonlinear m_nl, float cf, float t);
        // generator of trajectory parameters for the straight line model
        bool slmGenerator(mode_nonlinear *m_nl);
        // initialize the generator
