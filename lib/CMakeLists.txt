@@ -24,7 +24,6 @@ include(GrPlatform) #define LIB_SUFFIX
 
 include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
-
 list(APPEND uwspr_sources
     helpers.cc
     c2file_source_impl.cc
@@ -35,8 +34,11 @@ list(APPEND uwspr_sources
     # wsprd_utils.cc
     # wsprsim_utils.cc
     # wsprd.cc
-    decoder_impl.cc
-    WSPR_unpacker_impl.cc )
+    WSPR_unpacker_impl.cc
+    sync_and_demodulate_impl.cc
+    slm.cc
+    sliding_window_stream_to_pdu_impl.cc
+    FDR_impl.cc )
 
 set(uwspr_sources "${uwspr_sources}" PARENT_SCOPE)
 if(NOT uwspr_sources)
