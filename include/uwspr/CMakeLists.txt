@@ -23,6 +23,8 @@
 install(FILES
     api.h
     c2file_source.h
-    decoder.h
-    WSPR_unpacker.h DESTINATION include/uwspr
+    WSPR_unpacker.h
+    sync_and_demodulate.h
+    sliding_window_stream_to_pdu.h
+    FDR.h DESTINATION include/uwspr
 )

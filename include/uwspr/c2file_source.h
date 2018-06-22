@@ -47,7 +47,8 @@ namespace gr {
        * creating new instances.
        * \param filename The .c2 file to be opened
        */
-      static sptr make(const char *filename, bool repeat = false);
+      static sptr make(const char *filename, bool repeat = false,
+        float drift_rate = 0.0);
     };
 
   } // namespace uwspr

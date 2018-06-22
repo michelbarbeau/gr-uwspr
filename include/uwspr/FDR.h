@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2017 Michel Barbeau, Carleton University.
+ * Copyright 2018 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@
  */
 
 
-#ifndef INCLUDED_UWSPR_WSPR_UNPACKER_H
-#define INCLUDED_UWSPR_WSPR_UNPACKER_H
+#ifndef INCLUDED_UWSPR_FDR_H
+#define INCLUDED_UWSPR_FDR_H
 
 #include <uwspr/api.h>
 #include <gnuradio/block.h>
@@ -33,23 +33,24 @@ namespace gr {
      * \ingroup uwspr
      *
      */
-    class UWSPR_API WSPR_unpacker : virtual public gr::block
+    class UWSPR_API FDR : virtual public gr::block
     {
      public:
-      typedef boost::shared_ptr<WSPR_unpacker> sptr;
+      typedef boost::shared_ptr<FDR> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of uwspr::WSPR_unpacker.
+       * \brief Return a shared_ptr to a new instance of uwspr::FDR.
        *
-       * To avoid accidental use of raw pointers, uwspr::WSPR_unpacker's
+       * To avoid accidental use of raw pointers, uwspr::FDR's
        * constructor is in a private implementation
-       * class. uwspr::WSPR_unpacker::make is the public interface for
+       * class. uwspr::FDR::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(int fs, int fl, int spb, int maxdrift, int maxfreqs,
+        int halfbandwidth, int cf, int threshold);
     };
 
   } // namespace uwspr
 } // namespace gr
 
-#endif /* INCLUDED_UWSPR_WSPR_UNPACKER_H */
+#endif /* INCLUDED_UWSPR_FDR_H */

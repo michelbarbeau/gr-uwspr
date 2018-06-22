@@ -91,7 +91,6 @@ namespace gr {
      // init delta frequency
      df=375.0/256.0/2; // or df=775/256
      npoints = 45000;
-     nffts=4*floor(npoints/512)-1;
      // metric table initialization
 #include "./metric_tables.c"
      bias=0.45;    //Fano metric bias (used for both Fano and stack algorithms)
@@ -99,8 +98,6 @@ namespace gr {
        mettab[0][i]=round( 10*(metric_tables[2][i]-bias) );
        mettab[1][i]=round( 10*(metric_tables[2][255-i]-bias) );
      }
-     tfano=0.0; treadwav=0.0; tcandidates=0.0; tsync0=0.0;
-     tsync1=0.0; tsync2=0.0; ttotal=0.0;
      nbits=81;
      symbols=(unsigned char *)malloc(sizeof(char)*nbits*2);
      decdata=(unsigned char *)malloc(sizeof(char)*11);
@@ -126,6 +123,9 @@ namespace gr {
     */
    sync_and_demodulate_impl::~sync_and_demodulate_impl()
    {
+     free(symbols);
+     free(decdata);
+     free(channel_symbols);
      fclose(msglogfile);
    }
 

@@ -53,9 +53,6 @@ namespace gr {
        // delta frequency
        float df; // or df=775/256
        int npoints;
-       int nffts;
-       float tfano,treadwav,tcandidates,tsync0;
-       float tsync1,tsync2,ttotal;
        unsigned int nbits; // number of bits in a frame
        unsigned char *symbols, *decdata, *channel_symbols;
        // array of candidate frequencies

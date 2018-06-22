@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2017 Michel Barbeau, Carleton University.
+ * Copyright 2018 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,37 +19,40 @@
  */
 
 
-#ifndef INCLUDED_UWSPR_WSPR_UNPACKER_H
-#define INCLUDED_UWSPR_WSPR_UNPACKER_H
+#ifndef INCLUDED_UWSPR_SLIDING_WINDOW_STREAM_TO_PDU_H
+#define INCLUDED_UWSPR_SLIDING_WINDOW_STREAM_TO_PDU_H
 
 #include <uwspr/api.h>
-#include <gnuradio/block.h>
+#include <gnuradio/sync_block.h>
 
 namespace gr {
   namespace uwspr {
 
     /*!
-     * \brief <+description of block+>
+     * \brief Accepts a continous stream of time-domain samples.
+     *   The samples are pushed in ring buffer.
+     *   When 120~seconds of samples are buffered,
+     *   they become the payload of a PDU that it posted on the output port.
      * \ingroup uwspr
      *
      */
-    class UWSPR_API WSPR_unpacker : virtual public gr::block
+    class UWSPR_API sliding_window_stream_to_pdu : virtual public gr::sync_block
     {
      public:
-      typedef boost::shared_ptr<WSPR_unpacker> sptr;
+      typedef boost::shared_ptr<sliding_window_stream_to_pdu> sptr;
 
       /*!
-       * \brief Return a shared_ptr to a new instance of uwspr::WSPR_unpacker.
+       * \brief Return a shared_ptr to a new instance of uwspr::sliding_window_stream_to_pdu.
        *
-       * To avoid accidental use of raw pointers, uwspr::WSPR_unpacker's
+       * To avoid accidental use of raw pointers, uwspr::sliding_window_stream_to_pdu's
        * constructor is in a private implementation
-       * class. uwspr::WSPR_unpacker::make is the public interface for
+       * class. uwspr::sliding_window_stream_to_pdu::make is the public interface for
        * creating new instances.
        */
-      static sptr make();
+      static sptr make(int fs, int fl, int shift, int C);
     };
 
   } // namespace uwspr
 } // namespace gr
 
-#endif /* INCLUDED_UWSPR_WSPR_UNPACKER_H */
+#endif /* INCLUDED_UWSPR_SLIDING_WINDOW_STREAM_TO_PDU_H */
