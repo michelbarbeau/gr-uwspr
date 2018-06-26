@@ -7,7 +7,7 @@ Michel Barbeau, <a href="https://pubs.gnuradio.org/index.php/grcon/article/view/
 
 # Copyright 2018 Carleton University.
 # Author: Michel Barbeau
-# Version: June 20, 2018
+# Version: June 26, 2018
 
 ## Installing
 

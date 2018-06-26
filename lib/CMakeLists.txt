@@ -27,13 +27,8 @@ link_directories(${Boost_LIBRARY_DIRS})
 list(APPEND uwspr_sources
     helpers.cc
     c2file_source_impl.cc
-    # fano.c
-    # jelinek.c
-    # nhash.c
+    Fano.cc
     tab.c
-    # wsprd_utils.cc
-    # wsprsim_utils.cc
-    # wsprd.cc
     WSPR_unpacker_impl.cc
     sync_and_demodulate_impl.cc
     slm.cc

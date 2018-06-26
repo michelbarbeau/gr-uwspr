@@ -28,7 +28,7 @@
 #include <math.h>
 
 #ifndef DEBUG
-#define DEBUG 1 // set debug mode
+#define DEBUG 0 // set debug mode
 #endif
 #include "debugmacro.h"
 

@@ -26,14 +26,14 @@
 #include <iostream>
 #include "candidate_t.h"
 #include "slm.h"
+#include "Fano.h"
 
 using namespace std;
 
-extern unsigned char Partab[];
-
 namespace gr {
   namespace uwspr {
-    class sync_and_demodulate_impl : public sync_and_demodulate, public SLM
+    class sync_and_demodulate_impl :
+     public sync_and_demodulate, public SLM, public Fano
     {
      private:
        pmt::pmt_t in_port;
@@ -69,26 +69,6 @@ namespace gr {
        void printtime();
        // frame counter
        unsigned framecount;
-       // Fano FEC structure
-       struct node {
-          unsigned long encstate; /* Encoder state of next node */
-          long gamma; /* Cumulative metric to this node */
-          int metrics[4]; /* Metrics indexed by all possible tx syms */
-          int tm[2]; /* Sorted metrics for current hypotheses */
-          int i; /* Current branch being tested */
-       };
-       // metric table
-       float bias; //Fano metric bias (used for both Fano and stack algorithms)
-       int mettab[2][256];
-       // Convolutional FEC (Fano) methods
-       int encode(
-          unsigned char *symbols,          // Output buffer, 2*nbytes*8
-          unsigned char *data,           // Input buffer, nbytes
-          unsigned int nbytes);            // Number of bytes in data
-       // FANO FEC decoder
-       int fano(unsigned int *metric, unsigned int *cycles, unsigned int *maxnp,
-          unsigned char *data,unsigned char *symbols, unsigned int nbits,
-            int mettab[2][256],int delta,unsigned int maxcycles);
        // synchronize and demodulate
        void sync_and_demodulate(candidate_t candidate,
          float *id, float *qd, long np,
