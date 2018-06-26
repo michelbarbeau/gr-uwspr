@@ -9,14 +9,21 @@
 
 %{
 #include "uwspr/c2file_source.h"
-#include "uwspr/decoder.h"
 #include "uwspr/WSPR_unpacker.h"
+#include "uwspr/sync_and_demodulate.h"
+#include "uwspr/sliding_window_stream_to_pdu.h"
+#include "uwspr/FDR.h"
 %}
 
 
 %include "uwspr/c2file_source.h"
 GR_SWIG_BLOCK_MAGIC2(uwspr, c2file_source);
-%include "uwspr/decoder.h"
-GR_SWIG_BLOCK_MAGIC2(uwspr, decoder);
+
 %include "uwspr/WSPR_unpacker.h"
 GR_SWIG_BLOCK_MAGIC2(uwspr, WSPR_unpacker);
+%include "uwspr/sync_and_demodulate.h"
+GR_SWIG_BLOCK_MAGIC2(uwspr, sync_and_demodulate);
+%include "uwspr/sliding_window_stream_to_pdu.h"
+GR_SWIG_BLOCK_MAGIC2(uwspr, sliding_window_stream_to_pdu);
+%include "uwspr/FDR.h"
+GR_SWIG_BLOCK_MAGIC2(uwspr, FDR);
