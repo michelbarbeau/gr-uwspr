@@ -1,6 +1,6 @@
 #  Low Frequency and Weak Signal Underwater Communications in GNU Radio.
 
-See the Wiki section of this project for a list of related papers and MATLAB Live Scripts explaining some of the details of the software design.
+See the Wiki section of this repository for a list of related papers and MATLAB Live Scripts explaining some of the details of the software design.
 
 # Copyright 2019 Carleton University.
 # Author: Michel Barbeau
