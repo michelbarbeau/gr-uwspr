@@ -2,7 +2,7 @@
 
 See the Wiki section of this repository for a list of related papers and MATLAB Live Scripts explaining some of the details of the software design.
 
-# Copyright 2019 Carleton University.
+# Copyright 2019 Michel Barbeau, Carleton University.
 # Author: Michel Barbeau
 # Version: January 4, 2019
 
