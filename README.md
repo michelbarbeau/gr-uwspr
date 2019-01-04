@@ -1,13 +1,10 @@
 #  Low Frequency and Weak Signal Underwater Communications in GNU Radio.
 
-This project is related to the paper:
+See the Wiki section of this project for a list of related papers and MATLAB Live Scripts explaining some of the details of the software design.
 
-Michel Barbeau, <a href="https://pubs.gnuradio.org/index.php/grcon/article/view/20"> Weak Signal Underwater Communications in the Ultra Low Frequency Band</a>, Proceedings of the GNU Radio Conference, September 2017.
-
-
-# Copyright 2018 Carleton University.
+# Copyright 2019 Carleton University.
 # Author: Michel Barbeau
-# Version: June 26, 2018
+# Version: January 4, 2019
 
 ## Installing
 
