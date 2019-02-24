@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2018 Michel Barbeau, Carleton University.
+ * Copyright 2019 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,8 +35,8 @@ namespace gr {
        bool slmGenerator(mode_nonlinear *m_nl);
        // initialize the generator
        void slmGeneratorInit();
-       // control variable of generator
-       int step;
+       // index of current instances
+       int current;
        SLM() {};
        ~SLM() {};
    };

@@ -73,14 +73,17 @@
     <type>message</type>
   </source>
   <doc>
-    Copyright 2018 Michel Barbeau, Carleton University. Using in input a PDU containing "fl" samples, constructs a frequency domain representation. Produces a PDU contained the frequency domain representation and indices of signal tracking function.
-    Parameters
+Copyright 2019 Michel Barbeau, Carleton University. 
+
+Using in input a PDU containing "fl" samples, constructs a frequency domain representation. Produces a PDU contained the frequency domain representation and indices of signal tracking function.
+
+Parameters
+
     fs = sampling frequency (in samples/second)
     fl = data frame length (in samples)
     spd = number of samples in a baud (in symbols)
     maxdrift = maximum acceptable frequency drift during a data frame (in Hz)
     maxfreqs = maximum number of frequencies consider during the search
-    cf = carrier frequency (in Hz) used to calculate the nonlinear Doppler
-       shift, normally use the center frequency
+    cf = carrier frequency (in Hz) used to calculate the nonlinear Doppler shift, normally use the center frequency
   </doc>
 </block>

@@ -362,18 +362,14 @@ namespace gr {
             break;
          }
          case nonlinear : {
-            candidates[i].m_nonlinear.va =
+            candidates[i].m_nonlinear.V1 =
              pmt::to_double(pmt::tuple_ref(freq_tuple,5)),
-            candidates[i].m_nonlinear.ma =
+            candidates[i].m_nonlinear.V2 =
              pmt::to_double(pmt::tuple_ref(freq_tuple,6)),
-            candidates[i].m_nonlinear.xa =
+            candidates[i].m_nonlinear.p1 =
              (int)pmt::to_long(pmt::tuple_ref(freq_tuple,7)),
-            candidates[i].m_nonlinear.ya =
+            candidates[i].m_nonlinear.p2 =
              (int)pmt::to_long(pmt::tuple_ref(freq_tuple,8));
-            candidates[i].m_nonlinear.vb = 0;
-            candidates[i].m_nonlinear.mb = 0;
-            candidates[i].m_nonlinear.xb = 0;
-            candidates[i].m_nonlinear.yb = 0;
             candidates[i].m_linear.drift = 0;
             break;
          }
@@ -397,11 +393,11 @@ namespace gr {
        if (candidates[j].m_type==linear) {
          log("    Linear drift is %2.2f Hz", candidates[j].m_linear.drift);
        } else {
-         log("    Nonlinear drift  va:%2.2f ma:%2.2f xa:%d ya:%d",
-           candidates[j].m_nonlinear.va,
-           candidates[j].m_nonlinear.ma,
-           candidates[j].m_nonlinear.xa,
-           candidates[j].m_nonlinear.ya
+         log("    Nonlinear drift  V=:(%2.2f,%2.2f) p=(%d,%d)",
+           candidates[j].m_nonlinear.V1,
+           candidates[j].m_nonlinear.V2,
+           candidates[j].m_nonlinear.p1,
+           candidates[j].m_nonlinear.p2
          );
        }
        memset(symbols,0,sizeof(char)*nbits*2);
@@ -500,11 +496,11 @@ namespace gr {
          if (candidates[j].m_type==linear) {
            log("    Linear drift is %2.2f Hz", candidates[j].m_linear.drift);
          } else {
-           log("    Nonlinear drift  va:%2.2f ma:%2.2f xa:%d ya:%d",
-             candidates[j].m_nonlinear.va,
-             candidates[j].m_nonlinear.ma,
-             candidates[j].m_nonlinear.xa,
-             candidates[j].m_nonlinear.ya
+         log("    Nonlinear drift  V=:(%2.2f,%2.2f) p=(%d,%d)",
+           candidates[j].m_nonlinear.V1,
+           candidates[j].m_nonlinear.V2,
+           candidates[j].m_nonlinear.p1,
+           candidates[j].m_nonlinear.p2
            );
          }
          // log message in a file
@@ -517,11 +513,11 @@ namespace gr {
              "Linear drift is %2.2f Hz\n", candidates[j].m_linear.drift);
          } else {
            fprintf(msglogfile,
-             "Nonlinear drift  va:%2.2f ma:%2.2f xa:%d ya:%d\n",
-             candidates[j].m_nonlinear.va,
-             candidates[j].m_nonlinear.ma,
-             candidates[j].m_nonlinear.xa,
-             candidates[j].m_nonlinear.ya
+             "Nonlinear drift  V=:(%2.2f,%2.2f) p=(%d,%d)",
+           candidates[j].m_nonlinear.V1,
+           candidates[j].m_nonlinear.V2,
+           candidates[j].m_nonlinear.p1,
+           candidates[j].m_nonlinear.p2
            );
          }
          fprintf(msglogfile, "Data: ");

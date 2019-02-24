@@ -62,11 +62,13 @@
     <type>message</type>
   </source>
   <doc>
-    Copyright 2018 Michel Barbeau, Carleton University. Using in input a PDU
-      containing "fl" samples, constructs a frequency domain representation.
-      Produces a PDU contained the frequency domain representation and indices
-      of signal tracking functions.
-    Parameters
+Copyright 2019 Michel Barbeau, Carleton University. 
+
+Using in input a PDU containing "fl" samples, constructs a frequency domain representation. Produces a PDU contained the frequency domain representation and indices of signal tracking functions.
+
+
+Parameters
+
     fs = Sampling frequency (in samples/second).
     fl = Data frame length (in samples).
     spd = Number of samples in a baud (in symbols).

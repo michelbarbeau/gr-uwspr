@@ -56,8 +56,15 @@
     <type>message</type>
   </source>
   <doc>
-    Copyright 2018 Michel Barbeau, Carleton University. Accepts a continous stream of time-domain samples. The samples are pushed in ring buffer. When at least "fl"~seconds of samples are buffered, the first "fl"~seconds (buffer window) become the
-    payload of a PDU that it posted on the output port. The window on the ring buffer is slide "shift" samples. Parameters fs = sampling frequency (samples/second) fl = frame length (samples) shift = buffer window shift from PUD to PDU (seconds) C =
-    capacity of ring buffer (frames)
+Copyright 2019 Michel Barbeau, Carleton University. 
+
+Accepts a continous stream of time-domain samples. The samples are pushed in a ring buffer. When at least "fl"~seconds of samples are buffered, the first "fl"~seconds (buffer window) become the payload of a PDU that is posted on the output port. The window on the ring buffer is slided "shift" samples.
+
+Parameters 
+
+fs = sampling frequency (samples/second) 
+fl = frame length (samples) 
+shift = buffer window shift from PUD to PDU (seconds) 
+C = capacity of ring buffer (frames)
   </doc>
 </block>

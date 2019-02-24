@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2018 Michel Barbeau, Carleton University.
+ * Copyright 2019 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,14 +28,10 @@ namespace gr {
       float drift;
     } mode_linear;
     typedef struct {
-      // vehicle "a"
-      double va; // velocity
-      double ma; // slope
-      int xa, ya; // start coordinates
-      // vehicle "b"
-      double vb; // velocity
-      double mb; // slope
-      int xb, yb; // start coordinates
+      // velocity
+      double V1, V2;
+      // start coordinates
+      int p1, p2;
     } mode_nonlinear;
     enum Modes { linear, nonlinear };
     typedef struct {

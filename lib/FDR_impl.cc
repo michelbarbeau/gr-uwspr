@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2018 Michel Barbeau, Carleton University.
+ * Copyright 2019 Michel Barbeau, Carleton University.
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -436,10 +436,10 @@ namespace gr {
                 pmt::from_double(candidates[i].snr),
                 pmt::from_double(candidates[i].sync),
                 pmt::from_long(candidates[i].shift),
-                pmt::from_double(candidates[i].m_nonlinear.va),
-                pmt::from_double(candidates[i].m_nonlinear.ma),
-                pmt::from_long(candidates[i].m_nonlinear.xa),
-                pmt::from_long(candidates[i].m_nonlinear.ya));
+                pmt::from_double(candidates[i].m_nonlinear.V1),
+                pmt::from_double(candidates[i].m_nonlinear.V2),
+                pmt::from_long(candidates[i].m_nonlinear.p1),
+                pmt::from_long(candidates[i].m_nonlinear.p2));
            break;
           }
         }
