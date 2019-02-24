@@ -4,7 +4,7 @@ See the Wiki section of this repository for a list of related papers and MATLAB 
 
 # Copyright 2019 Michel Barbeau, Carleton University.
 # Author: Michel Barbeau
-# Version: February 9, 2019
+# Version: February 22, 2019
 
 ## Installing
 
