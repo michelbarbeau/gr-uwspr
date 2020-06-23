@@ -19,6 +19,8 @@
  */
 
  #include "slm.h"
+ #include <stdio.h> 
+ #include <cmath> // standard libraries and cmath libraries are included to use sqrt and abs function. added by Jay
  #include <math.h>
 
  #ifndef DEBUG
@@ -53,7 +55,7 @@
          2 - 1;
       //
       double numerator = 
-         abs(
+         std::abs(
             m_nl.V1 * ( m_nl.V1 * t+m_nl.p1 ) 
             +
             m_nl.V2 * ( m_nl.V2 * t+m_nl.p2 )
