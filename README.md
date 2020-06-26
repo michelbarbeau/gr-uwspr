@@ -2,13 +2,12 @@
 
 See the Wiki section of this repository for a list of related papers and MATLAB Live Scripts explaining some of the details of the software design.
 
-# Copyright 2019 Michel Barbeau, Carleton University.
-# Author: Michel Barbeau
-# Version: February 22, 2019
+## Copyright 2019 Michel Barbeau, Carleton University.
+## Author: Michel Barbeau
+## Version: February 22, 2019
 
-# Latest build on GNURadio 3.8
-# updated by Jay Patel
-# version: June 26, 2020.
+### Latest build on GNURadio 3.8, updated by Jay Patel
+### Readme Version: June 26, 2020.
 
 ## Installing
 
