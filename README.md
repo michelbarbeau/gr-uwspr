@@ -6,9 +6,15 @@ See the Wiki section of this repository for a list of related papers and MATLAB 
 # Author: Michel Barbeau
 # Version: February 22, 2019
 
+# Latest build on GNURadio 3.8
+# updated by Jay Patel
+# version: June 26, 2020.
+
 ## Installing
 
-`git clone https://github.com/michelbarbeau/gr-uwspr`
+`git clone https://github.com/patel999jay/gr-uwspr.git`
+
+Note : This is just fork of the original repo : https://github.com/michelbarbeau/gr-uwspr . Please refer the same for more details.
 
 ## Building
 
