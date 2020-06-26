@@ -20,7 +20,7 @@ mkdir build
 
 cd build
 
-cmake ../
+cmake -DENABLE_DOXYGEN=OFF -DGNURADIO_ALL_INCLUDE_DIRS=/usr/include/gnuradio/swig ../
 
 make
 
