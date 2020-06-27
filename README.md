@@ -29,6 +29,40 @@ cmake -DENABLE_DOXYGEN=OFF -DGNURADIO_ALL_INCLUDE_DIRS=/usr/include/gnuradio/swi
 
 make
 
+make test 
+
+ctest
+```
+### [Newer GNURadio version 3.8 update](https://www.gnuradio.org/news/2019-08-10-gnu-radio-v3-8-0-0-release/):
+
+#### GRC
+- YAML instead of XML
+
+#### gr-utils
+- `gr_modtool` now vastly improved
+
+#### Removed
+##### project scope
+- Modules `gr-comedi`, `gr-fcd` and `gr-wxgui` are gone.
+#### gr-digital
+- python-based packet_encoder and related tools: Bugs that were sporadic and never fixed, so after long deprecation, we’re removing it
+```
+cd ..
+
+gr_modtool makeyaml c2file_source_impl
+
+gr_modtool makeyaml c2file_source_impl
+
+gr_modtool makeyaml FDR
+
+gr_modtool makeyaml sliding_window_stream_to_pdu_impl
+
+gr_modtool makeyaml sync_and_demodulate_impl
+
+gr_modtool makeyaml WSPR_unpacker_impl
+
+make
+
 sudo make install
 
 sudo ldconfig
