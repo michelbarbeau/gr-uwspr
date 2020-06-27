@@ -2,13 +2,18 @@
 
 See the Wiki section of this repository for a list of related papers and MATLAB Live Scripts explaining some of the details of the software design.
 
-# Copyright 2019 Michel Barbeau, Carleton University.
-# Author: Michel Barbeau
-# Version: February 22, 2019
+## Copyright 2019 Michel Barbeau, Carleton University.
+## Author: Michel Barbeau
+## Version: February 22, 2019
+-----------------------------
+#### Latest build on GNURadio 3.8, updated by Jay Patel on June 26, 2020.
+
 
 ## Installing
 
-`git clone https://github.com/michelbarbeau/gr-uwspr`
+`git clone https://github.com/patel999jay/gr-uwspr.git`
+
+Note : This is just fork of the original repo : https://github.com/michelbarbeau/gr-uwspr . Please refer the same for more details.
 
 ## Building
 
@@ -20,7 +25,41 @@ mkdir build
 
 cd build
 
-cmake ../
+cmake -DENABLE_DOXYGEN=OFF -DGNURADIO_ALL_INCLUDE_DIRS=/usr/include/gnuradio/swig ../
+
+make
+
+make test 
+
+ctest
+```
+### [Newer GNURadio version 3.8 update](https://www.gnuradio.org/news/2019-08-10-gnu-radio-v3-8-0-0-release/):
+
+#### GRC
+- YAML instead of XML
+
+#### gr-utils
+- `gr_modtool` now vastly improved
+
+#### Removed
+##### project scope
+- Modules `gr-comedi`, `gr-fcd` and `gr-wxgui` are gone.
+#### gr-digital
+- python-based packet_encoder and related tools: Bugs that were sporadic and never fixed, so after long deprecation, we’re removing it
+```
+cd ..
+
+gr_modtool makeyaml c2file_source_impl
+
+gr_modtool makeyaml c2file_source_impl
+
+gr_modtool makeyaml FDR
+
+gr_modtool makeyaml sliding_window_stream_to_pdu_impl
+
+gr_modtool makeyaml sync_and_demodulate_impl
+
+gr_modtool makeyaml WSPR_unpacker_impl
 
 make
 
