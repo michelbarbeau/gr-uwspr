@@ -5,9 +5,9 @@ See the Wiki section of this repository for a list of related papers and MATLAB 
 ## Copyright 2019 Michel Barbeau, Carleton University.
 ## Author: Michel Barbeau
 ## Version: February 22, 2019
+-----------------------------
+#### Latest build on GNURadio 3.8, updated by Jay Patel on June 26, 2020.
 
-### Latest build on GNURadio 3.8, updated by Jay Patel
-### Readme Version: June 26, 2020.
 
 ## Installing
 
